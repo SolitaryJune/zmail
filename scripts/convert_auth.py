@@ -71,6 +71,12 @@ def convert():
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(result, f, separators=(',', ':'), ensure_ascii=False)
 
+    try:
+        os.remove(input_path)
+        print(f"Deleted input file: {input_path}")
+    except OSError as e:
+        print(f"Warning: Could not delete input file {input_path}: {e}")
+
     print(f"Success! Output written to {output_path}")
 
 if __name__ == "__main__":
