@@ -1,6 +1,6 @@
 # 🔐 私人账号管理 & 临时邮箱
 
-> 私有化账号信息管理与临时邮箱工具，基于 Cloudflare Workers 构建。
+> 私有化账号信息管理与临时邮箱工具，基于 Cloudflare Workers 构建。灵感来自Zmail，注册脚本详见scripts/codex.js
 
 ## ✨ 功能
 
