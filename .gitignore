@@ -91,3 +91,29 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/ 
+
+# ================================
+# 以下为补充的隐私和忽略文件
+# ================================
+
+# 根目录敏感数据
+ak.txt
+rk.txt
+registered_accounts.txt
+
+# Codex 注册脚本产生的配置与Token
+scripts/codex_auto_register-main/config.json
+scripts/codex_auto_register-main/codex_tokens/
+
+# 常规环境配置文件补充
+.env.development
+.env.test
+.env.production
+*.env
+
+# 证书及私钥文件
+*.pem
+*.crt
+*.key
+*.p12
+*.pfx 

@@ -1,0 +1,26 @@
+{
+    "total_accounts": 0,
+    "max_workers": 1,
+    "zmail_base_url": "",
+    "zmail_auth_password": "",
+    "zmail_email_domain": "",
+    "proxy": "",
+    "proxy_pool": [
+        "http://127.0.0.1:7897",
+        "http://127.0.0.1:7898"
+    ],
+    "output_file": "registered_accounts.txt",
+    "enable_oauth": false,
+    "oauth_required": false,
+    "oauth_issuer": "https://auth.openai.com",
+    "oauth_client_id": "app_EMoamEEZ73f0CkXaXp7hrann",
+    "oauth_redirect_uri": "http://localhost:1455/auth/callback",
+    "ak_file": "ak.txt",
+    "rk_file": "rk.txt",
+    "token_json_dir": "codex_tokens",
+    "upload_api_url": "",
+    "upload_api_token": "",
+    "cpa_api_url": "http://localhost:8317",
+    "cpa_management_key": "",
+    "auto_upload_to_cpa": false
+}
