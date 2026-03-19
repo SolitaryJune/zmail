@@ -17,6 +17,7 @@ import {
   getAccount,
   updateAccount,
   deleteAccount,
+  deleteAccountsByEmails,
   getAllPlatforms
 } from './database';
 import { generateRandomAddress } from './utils';
@@ -465,6 +466,23 @@ app.delete('/api/accounts/:id', async (c) => {
   } catch (error) {
     console.error('删除账号失败:', error);
     return c.json({ success: false, error: '删除账号失败' }, 500);
+  }
+});
+
+// 批量删除账号（按邮箱列表，可选平台过滤）
+app.post('/api/accounts/batch-delete', async (c) => {
+  try {
+    const body = await c.req.json();
+    const emails: string[] = body.emails;
+    const platform: string | undefined = body.platform;
+    if (!emails || !Array.isArray(emails) || emails.length === 0) {
+      return c.json({ success: false, error: '需要提供 emails 数组' }, 400);
+    }
+    const deleted = await deleteAccountsByEmails(c.env.DB, emails, platform);
+    return c.json({ success: true, deleted });
+  } catch (error) {
+    console.error('批量删除账号失败:', error);
+    return c.json({ success: false, error: '批量删除账号失败' }, 500);
   }
 });
 

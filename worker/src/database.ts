@@ -744,6 +744,37 @@ export async function deleteAccount(db: D1Database, id: string): Promise<boolean
 }
 
 /**
+ * 批量删除账号（按邮箱列表）
+ */
+export async function deleteAccountsByEmails(db: D1Database, emails: string[], platform?: string): Promise<number> {
+  if (!emails || emails.length === 0) return 0;
+  
+  // D1 支持的最大绑定参数数量有限，分批处理
+  const BATCH_SIZE = 50;
+  let totalDeleted = 0;
+  
+  for (let i = 0; i < emails.length; i += BATCH_SIZE) {
+    const batch = emails.slice(i, i + BATCH_SIZE);
+    const placeholders = batch.map(() => '?').join(',');
+    
+    if (platform) {
+      // 只删除指定平台的账号
+      const result = await db.prepare(
+        `DELETE FROM accounts WHERE email IN (${placeholders}) AND platforms LIKE ?`
+      ).bind(...batch, `%"${platform}"%`).run();
+      totalDeleted += result.meta?.changes || 0;
+    } else {
+      const result = await db.prepare(
+        `DELETE FROM accounts WHERE email IN (${placeholders})`
+      ).bind(...batch).run();
+      totalDeleted += result.meta?.changes || 0;
+    }
+  }
+  
+  return totalDeleted;
+}
+
+/**
  * 获取所有已使用的平台列表（用于筛选下拉）
  */
 export async function getAllPlatforms(db: D1Database): Promise<string[]> {
